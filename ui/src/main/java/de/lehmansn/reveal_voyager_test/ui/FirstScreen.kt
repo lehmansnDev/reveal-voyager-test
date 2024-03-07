@@ -13,6 +13,8 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -24,6 +26,8 @@ import com.svenjacobs.reveal.Reveal
 import com.svenjacobs.reveal.RevealCanvasState
 import com.svenjacobs.reveal.RevealOverlayArrangement
 import com.svenjacobs.reveal.rememberRevealState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,8 +38,15 @@ class FirstScreen(
     @Composable
     override fun Content() {
         val revealState = rememberRevealState()
-
+        val coroutineScope = rememberCoroutineScope()
         val navigator = LocalNavigator.currentOrThrow
+
+        LaunchedEffect(Unit) {
+            delay(200L)
+            if (!revealState.isVisible) {
+                revealState.reveal(Keys.First)
+            }
+        }
 
         Reveal(
             revealCanvasState = revealCanvasState,
@@ -54,7 +65,9 @@ class FirstScreen(
                         }
                     }
                 }
-            }
+            },
+            onOverlayClick = { coroutineScope.launch { revealState.hide() } },
+            onRevealableClick = { coroutineScope.launch { revealState.hide() } },
         ) {
             Scaffold(
                 topBar = {
@@ -73,11 +86,11 @@ class FirstScreen(
                 ) {
                     TextButton(
                         onClick = { navigator.push(SecondScreen(revealCanvasState)) },
+                        modifier = Modifier.revealable(Keys.First),
                         colors = ButtonDefaults.elevatedButtonColors()
                     ) {
                         Text(
                             text = "Next Screen",
-                            modifier = Modifier.revealable(Keys.Second)
                         )
                     }
                 }

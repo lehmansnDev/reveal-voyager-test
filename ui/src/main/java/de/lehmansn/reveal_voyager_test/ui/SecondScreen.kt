@@ -15,6 +15,8 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -26,6 +28,8 @@ import com.svenjacobs.reveal.Reveal
 import com.svenjacobs.reveal.RevealCanvasState
 import com.svenjacobs.reveal.RevealOverlayArrangement
 import com.svenjacobs.reveal.rememberRevealState
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,8 +40,15 @@ class SecondScreen(
     @Composable
     override fun Content() {
         val revealState = rememberRevealState()
-
+        val coroutineScope = rememberCoroutineScope()
         val navigator = LocalNavigator.currentOrThrow
+
+        LaunchedEffect(Unit) {
+            delay(200L)
+            if (!revealState.isVisible) {
+                revealState.reveal(Keys.Second)
+            }
+        }
 
         Reveal(
             revealCanvasState = revealCanvasState,
@@ -56,7 +67,9 @@ class SecondScreen(
                         }
                     }
                 }
-            }
+            },
+            onOverlayClick = { coroutineScope.launch { revealState.hide() } },
+            onRevealableClick = { coroutineScope.launch { revealState.hide() } },
         ) {
             Scaffold(
                 topBar = {
