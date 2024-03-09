@@ -26,14 +26,13 @@ import com.svenjacobs.reveal.Reveal
 import com.svenjacobs.reveal.RevealCanvasState
 import com.svenjacobs.reveal.RevealOverlayArrangement
 import com.svenjacobs.reveal.rememberRevealState
+import de.lehmansn.reveal_voyager_test.navigation.RevealConstants.revealCanvasState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-class FirstScreen(
-    private val revealCanvasState: RevealCanvasState
-) : Screen {
+object FirstScreen : Screen {
 
     @Composable
     override fun Content() {
@@ -85,7 +84,7 @@ class FirstScreen(
                     contentAlignment = Alignment.Center
                 ) {
                     TextButton(
-                        onClick = { navigator.push(SecondScreen(revealCanvasState)) },
+                        onClick = { navigator.push(SecondScreen) },
                         modifier = Modifier.revealable(Keys.First),
                         colors = ButtonDefaults.elevatedButtonColors()
                     ) {

@@ -7,6 +7,7 @@ import cafe.adriel.voyager.core.registry.rememberScreen
 import cafe.adriel.voyager.navigator.Navigator
 import com.svenjacobs.reveal.RevealCanvas
 import com.svenjacobs.reveal.rememberRevealCanvasState
+import de.lehmansn.reveal_voyager_test.navigation.RevealConstants.revealCanvasState
 import de.lehmansn.reveal_voyager_test.navigation.SharedScreen
 import de.lehmansn.reveal_voyager_test.ui.theme.RevealVoyagerTestTheme
 
@@ -15,8 +16,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             RevealVoyagerTestTheme {
-                val revealCanvasState = rememberRevealCanvasState()
-                val firstScreen = rememberScreen(SharedScreen.First(revealCanvasState))
+                val firstScreen = rememberScreen(SharedScreen.First)
 
                 RevealCanvas(
                     revealCanvasState = revealCanvasState

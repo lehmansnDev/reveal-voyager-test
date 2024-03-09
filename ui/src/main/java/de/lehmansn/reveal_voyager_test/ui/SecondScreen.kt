@@ -28,14 +28,13 @@ import com.svenjacobs.reveal.Reveal
 import com.svenjacobs.reveal.RevealCanvasState
 import com.svenjacobs.reveal.RevealOverlayArrangement
 import com.svenjacobs.reveal.rememberRevealState
+import de.lehmansn.reveal_voyager_test.navigation.RevealConstants.revealCanvasState
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalMaterial3Api::class)
-class SecondScreen(
-    private val revealCanvasState: RevealCanvasState
-) : Screen {
+object SecondScreen : Screen {
 
     @Composable
     override fun Content() {

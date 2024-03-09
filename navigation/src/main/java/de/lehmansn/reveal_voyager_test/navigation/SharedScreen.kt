@@ -5,5 +5,5 @@ import com.svenjacobs.reveal.RevealCanvasState
 
 sealed class SharedScreen : ScreenProvider {
 
-    data class First(val revealCanvasState: RevealCanvasState) : SharedScreen()
+    data object First : SharedScreen()
 }

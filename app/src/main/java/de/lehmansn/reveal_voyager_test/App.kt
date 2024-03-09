@@ -9,8 +9,8 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         ScreenRegistry {
-            register<SharedScreen.First> { provider ->
-                FirstScreen(provider.revealCanvasState)
+            register<SharedScreen.First> {
+                FirstScreen
             }
         }
     }
